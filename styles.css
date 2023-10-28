@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+form {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.qr-code-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#qr-code {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}

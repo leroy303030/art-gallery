@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        /* Add CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .login-button {
+            float: right;
+            padding: 14px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Admin dashboard content */
+        .admin-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* Style the table for displaying booking data */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        /* Add some sample data for demonstration */
+        .sample-data {
+            margin-top: 20px;
+        }
+
+        .sample-data h3 {
+            text-align: center;
+        }
+
+        .navbar a.active,
+      .navbar a:hover {
+          background-color: #007BFF; /* Change the background color to your desired color */
+          color: white; /* Change the text color to your desired color */
+      }
+    </style>
+</head>
+<body>
+  
+    <div class="navbar">
+        <a href="../login_signup/admin_home.php">Home</a>
+        <a href="admin_bookavisit.html" class="active">Book a Visit</a>
+        <a href="#">Artworks</a>
+        <a href="#">Exhibition</a>
+        <a href="../bidding/admin_bidding.php">Bidding</a>
+        <a href="../arscanner/admin_scanner.html">AR Scanner</a>
+        <div class="logout-container">
+            <a href="../login_signup/logout.php">Logout</a>
+        </div>
+       
+    </div>
+
+    <!-- Admin dashboard content -->
+    <div class="admin-content">
+        <h2>Welcome to the Admin Dashboard</h2>
+
+        <!-- Display booking data in a table -->
+        <table id="bookingTable">
+            <tr>
+                <th>Booking ID</th>
+                <th>Contact Name</th>
+                <th>Visit Date</th>
+                <th>Number of Visitors</th>
+            </tr>
+        </table>
+
+       
+    </div>
+
+    
+    <script>
+        // Function to fetch booking data and populate the table
+        function fetchBookings() {
+            // Make an AJAX request to fetch booking data from the server
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_bookings.php', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Parse the JSON response
+                    var bookingData = JSON.parse(xhr.responseText);
+
+                    // Get the booking table element
+                    var table = document.getElementById('bookingTable');
+
+                    // Iterate through the data and populate the table
+                    bookingData.forEach(function (booking) {
+                        var row = table.insertRow(-1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+
+                        cell1.textContent = booking.id;
+                        cell2.textContent = booking.contactName;
+                        cell3.textContent = booking.visitDate;
+                        cell4.textContent = booking.numVisitors;
+                    });
+                } else {
+                    console.error('Error fetching data:', xhr.statusText);
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Request failed');
+            };
+
+            xhr.send();
+        }
+
+        // Call the fetchBookings function to populate the table
+        fetchBookings();
+    </script>
+</body>
+</html>
